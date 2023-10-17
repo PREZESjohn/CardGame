@@ -15,6 +15,7 @@
 		3FF5FE132ADE8D4C00757363 /* CardGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE122ADE8D4C00757363 /* CardGameUITests.swift */; };
 		3FF5FE152ADE8D4C00757363 /* CardGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE142ADE8D4C00757363 /* CardGameUITestsLaunchTests.swift */; };
 		3FF5FE222ADE8E5200757363 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE212ADE8E5200757363 /* CardView.swift */; };
+		3FF5FE242ADE9B9F00757363 /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE232ADE9B9F00757363 /* SectionButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		3FF5FE122ADE8D4C00757363 /* CardGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameUITests.swift; sourceTree = "<group>"; };
 		3FF5FE142ADE8D4C00757363 /* CardGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3FF5FE212ADE8E5200757363 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		3FF5FE232ADE9B9F00757363 /* SectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				3FF5FDFB2ADE8D4B00757363 /* Assets.xcassets */,
 				3FF5FDFD2ADE8D4B00757363 /* Preview Content */,
 				3FF5FE212ADE8E5200757363 /* CardView.swift */,
+				3FF5FE232ADE9B9F00757363 /* SectionButton.swift */,
 			);
 			path = CardGame;
 			sourceTree = "<group>";
@@ -263,6 +266,7 @@
 				3FF5FDFA2ADE8D4B00757363 /* ContentView.swift in Sources */,
 				3FF5FE222ADE8E5200757363 /* CardView.swift in Sources */,
 				3FF5FDF82ADE8D4B00757363 /* CardGameApp.swift in Sources */,
+				3FF5FE242ADE9B9F00757363 /* SectionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
