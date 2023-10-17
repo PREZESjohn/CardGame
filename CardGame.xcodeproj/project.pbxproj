@@ -14,6 +14,7 @@
 		3FF5FE092ADE8D4C00757363 /* CardGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE082ADE8D4C00757363 /* CardGameTests.swift */; };
 		3FF5FE132ADE8D4C00757363 /* CardGameUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE122ADE8D4C00757363 /* CardGameUITests.swift */; };
 		3FF5FE152ADE8D4C00757363 /* CardGameUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE142ADE8D4C00757363 /* CardGameUITestsLaunchTests.swift */; };
+		3FF5FE222ADE8E5200757363 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF5FE212ADE8E5200757363 /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		3FF5FE0E2ADE8D4C00757363 /* CardGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FF5FE122ADE8D4C00757363 /* CardGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameUITests.swift; sourceTree = "<group>"; };
 		3FF5FE142ADE8D4C00757363 /* CardGameUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGameUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3FF5FE212ADE8E5200757363 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				3FF5FDF92ADE8D4B00757363 /* ContentView.swift */,
 				3FF5FDFB2ADE8D4B00757363 /* Assets.xcassets */,
 				3FF5FDFD2ADE8D4B00757363 /* Preview Content */,
+				3FF5FE212ADE8E5200757363 /* CardView.swift */,
 			);
 			path = CardGame;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FF5FDFA2ADE8D4B00757363 /* ContentView.swift in Sources */,
+				3FF5FE222ADE8E5200757363 /* CardView.swift in Sources */,
 				3FF5FDF82ADE8D4B00757363 /* CardGameApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
