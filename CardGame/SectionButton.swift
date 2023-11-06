@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct SectionButton: View {
+    @Binding var color: Color
     @State var symbol: String
     @State var text: String
     var body: some View {
-        Button(action:{}){
+        //Button(action:{}){
             VStack{
                 Image(systemName: symbol)
                 Text(text).font(.footnote)
             }
                 
-        }
+       // }
     }
 }
 
 #Preview {
-    SectionButton( symbol: "face.smiling", text: "MOTYW 1")
+    SectionButton(color: .constant(.blue), symbol: "face.smiling", text: "MOTYW 1")
 }
