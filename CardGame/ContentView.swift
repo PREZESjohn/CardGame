@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emoijs = ["😀","😃","😆","😅","🤣","😊","🙂","😀","😃","😆","😅","🤣","😊","🙂","😀","😃","😆","😅","🤣","😊","🙂"]
-    var color: Color = .red
+    
+    let emoijsM1=["😀","😃","😆","😅","🤣","😊"]
+    let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
+    let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
+    
+    @State var emoijs=["😀","😃","😆","😅","🤣","😊","😀","😃","😆","😅","🤣","😊"].shuffled()
+    @State var color: Color = .blue
     @State var cardCount = 12
     
     
@@ -29,24 +34,24 @@ struct ContentView: View {
 //            cardsCountAdjuster
         }
         .foregroundColor(color)
-        .padding()
+        //.padding()
     }
     
 //    func adjustCardNumber(by offset: Int, symbol: String) -> some View{
 //        Button(action:{cardCount += offset}) {
-//    
+//
 //            Text(symbol)
 //                .padding(.horizontal)
 //                .font(.largeTitle)
 //                .overlay(
 //                    RoundedRectangle(cornerRadius: 12).stroke(Color.blue, lineWidth: 2))
-//            
+//
 //        }
-//        
+//
 //
 //        //.disabled(cardCount<=2 || cardCount>emoijs.count)
 //    }
-//    
+//
 //    var cardsCountAdjuster: some View {
 //        HStack {
 //            cardRemover
@@ -55,7 +60,7 @@ struct ContentView: View {
 //
 //        }
 //    }
-//    
+//
 //    var cardAdder: some View {
 //            adjustCardNumber(by: 2, symbol: "+").disabled( cardCount+2>emoijs.count)
 //        }
@@ -65,7 +70,7 @@ struct ContentView: View {
 
     var cards : some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))], spacing: 16){
-            ForEach(0..<cardCount, id: \.self){
+            ForEach(0..<emoijs.count, id: \.self){
                 index in
                 CardView(content: emoijs[index])
                 .aspectRatio(2/3, contentMode: .fit)
@@ -77,14 +82,41 @@ struct ContentView: View {
     }
     var selections: some View{
         HStack{
-            SectionButton(symbol: "face.smiling", text: "Motyw 1")
+            SectionButton(color: $color, symbol: "face.smiling", text: "Motyw 1")
+                .onTapGesture(perform:{
+                    changeMotyw(text: "Motyw 1")
+                })
             Spacer()
-            SectionButton(symbol: "paperplane.circle", text: "Motyw 2")
+            SectionButton(color: $color, symbol: "paperplane.circle", text: "Motyw 2")
+                .contentShape(Rectangle())
+                .onTapGesture(perform:{
+                    changeMotyw(text: "Motyw 2")
+                })
             Spacer()
-            SectionButton(symbol: "books.vertical.circle", text: "Motyw 3")
+            SectionButton(color: $color, symbol: "paperplane.circle", text: "Motyw 3")
+            .onTapGesture(perform:{
+                    changeMotyw(text: "Motyw 3")
+                })
         }
+        
     }
-    
+    func changeMotyw(text: String){
+        switch text {
+            case "Motyw 1":
+                self.color = .blue
+                emoijs=emoijsM1
+            case "Motyw 2":
+                self.color = .red
+                emoijs=emoijsM2
+            case "Motyw 3":
+                self.color = .green
+                emoijs=emoijsM3
+            default:
+                self.color = .blue
+        }
+        emoijs+=emoijs
+        emoijs=emoijs.shuffled()
+    }
 //    struct CardView: View {
 //        let content: String
 //        @State var isFaceUp : Bool = true
