@@ -15,12 +15,13 @@ struct ContentView: View {
     
     @State var emoijs=["😀","😃","😆","😅","🤣","😊","😀","😃","😆","😅","🤣","😊"].shuffled()
     @State var color: Color = .blue
-    @State var cardCount = 12
+    //@State var cardCount = 12
     
+    @ObservedObject var viewmodel: MemoGameViewModel
     
     var body: some View {
         VStack{
-            Text("Memo").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+            Text("Memo").font(.largeTitle).foregroundColor(.black)
             ScrollView{
                 cards
             }
@@ -34,7 +35,7 @@ struct ContentView: View {
 //            cardsCountAdjuster
         }
         .foregroundColor(color)
-        //.padding()
+        .padding()
     }
     
 //    func adjustCardNumber(by offset: Int, symbol: String) -> some View{
@@ -88,12 +89,11 @@ struct ContentView: View {
                 })
             Spacer()
             SectionButton(color: $color, symbol: "paperplane.circle", text: "Motyw 2")
-                .contentShape(Rectangle())
                 .onTapGesture(perform:{
                     changeMotyw(text: "Motyw 2")
                 })
             Spacer()
-            SectionButton(color: $color, symbol: "paperplane.circle", text: "Motyw 3")
+            SectionButton(color: $color, symbol: "heart", text: "Motyw 3")
             .onTapGesture(perform:{
                     changeMotyw(text: "Motyw 3")
                 })
@@ -116,6 +116,7 @@ struct ContentView: View {
         }
         emoijs+=emoijs
         emoijs=emoijs.shuffled()
+
     }
 //    struct CardView: View {
 //        let content: String
