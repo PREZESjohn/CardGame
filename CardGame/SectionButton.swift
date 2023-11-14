@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct SectionButton: View {
-    @Binding var color: Color
-    @State var symbol: String
-    @State var text: String
+    @ObservedObject var viewModel: MemoGameViewModel
+    var imageName : String
+    var content : String
+    var ownColor : Color
+    
     var body: some View {
-        //Button(action:{}){
+        Button(action: {
+            viewModel.changeApplicationTheme(color: ownColor)
+        }, label: {
             VStack{
-                Image(systemName: symbol)
-                Text(text).font(.footnote)
+                Image(systemName: imageName).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                Text(content)
             }
-                
-       // }
+        })
     }
-}
-
-#Preview {
-    SectionButton(color: .constant(.blue), symbol: "face.smiling", text: "MOTYW 1")
 }

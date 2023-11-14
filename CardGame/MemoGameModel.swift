@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct MemoGameModel<CardContent>{
-    private var cards: Array<Card>
+struct MemoGameModel<CardContent> where CardContent : Equatable{
+    private(set) var cards: Array<Card>
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int)->CardContent){
         cards=[]
@@ -19,9 +19,22 @@ struct MemoGameModel<CardContent>{
 
         }
     }
-    func choose(_ card: Card){}
+    mutating func choose(_ card: Card){
+        if let chosenIndex = cards.firstIndex(where: {$0.id == card.id}){
+            if cards[chosenIndex].isFaceUp==true {
+                cards[chosenIndex].isFaceUp=false
+            }else{
+                cards[chosenIndex].isFaceUp=true
+            }
+        }
+        
+    }
     
-    struct Card{
+    mutating func shuffle(){
+        cards.shuffle()
+    }
+    
+    struct Card: Equatable,Identifiable{
             var isFaceUp: Bool = false
             var isMatched: Bool = false
             var content: CardContent

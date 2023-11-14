@@ -15,7 +15,7 @@ class MemoGameViewModel: ObservableObject{
     let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
     let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
     
-    @State var color: Color = .blue
+    var color: Color = .red
     
     private static func createMemoGameViewModel() -> MemoGameModel<String>{
             return MemoGameModel<String>(numberOfPairsOfCards: 6){
@@ -30,22 +30,35 @@ class MemoGameViewModel: ObservableObject{
         }
     @Published private var model=createMemoGameViewModel()
     
-    func changeMotyw(text: String){
-        switch text {
-            case "Motyw 1":
-                self.color = .blue
-            MemoGameViewModel.emojis=emoijsM1
-            case "Motyw 2":
-                self.color = .red
-            MemoGameViewModel.emojis=emoijsM2
-            case "Motyw 3":
-                self.color = .green
-            MemoGameViewModel.emojis=emoijsM3
-            default:
-                self.color = .blue
-        }
-        MemoGameViewModel.emojis=MemoGameViewModel.emojis.shuffled()
-
+    var cards: Array<MemoGameModel<String>.Card> {
+        return model.cards
     }
+    func shuffle(){
+        model.shuffle()
+    }
+    
+    func choose(_ card: MemoGameModel<String>.Card){
+        model.choose(card)
+    }
+    func changeApplicationTheme(color: Color){
+        print(color)
+        self.color=color
+        model=MemoGameViewModel.createMemoGameViewModel()
+//        switch text {
+//            case "Motyw 1":
+//                self.color = .blue
+//            MemoGameViewModel.emojis=emoijsM1
+//            case "Motyw 2":
+//                self.color = .red
+//            MemoGameViewModel.emojis=emoijsM2
+//            case "Motyw 3":
+//                self.color = .green
+//            MemoGameViewModel.emojis=emoijsM3
+//            default:
+//                self.color = .blue
+//        }
+//        MemoGameViewModel.emojis=MemoGameViewModel.emojis.shuffled()
+    }
+   
     
 }

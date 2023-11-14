@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     
-    let emoijsM1=["😀","😃","😆","😅","🤣","😊"]
-    let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
-    let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
+//    let emoijsM1=["😀","😃","😆","😅","🤣","😊"]
+//    let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
+//    let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
     
-    @State var emoijs=["😀","😃","😆","😅","🤣","😊","😀","😃","😆","😅","🤣","😊"].shuffled()
-    @State var color: Color = .blue
+    //@State var emoijs=["😀","😃","😆","😅","🤣","😊","😀","😃","😆","😅","🤣","😊"].shuffled()
+    //var color: Color = .blue
     //@State var cardCount = 12
     
     @ObservedObject var viewmodel: MemoGameViewModel
@@ -24,6 +24,10 @@ struct ContentView: View {
             Text("Memo").font(.largeTitle).foregroundColor(.black)
             ScrollView{
                 cards
+                    .animation(.default,value: viewmodel.cards)
+            }
+            Button("shuffluj"){
+                viewmodel.shuffle()
             }
             selections
             
@@ -34,7 +38,7 @@ struct ContentView: View {
 //            }
 //            cardsCountAdjuster
         }
-        .foregroundColor(color)
+        .foregroundColor(viewmodel.color)
         .padding()
     }
     
@@ -70,54 +74,34 @@ struct ContentView: View {
 //        }
 
     var cards : some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))], spacing: 16){
-            ForEach(0..<emoijs.count, id: \.self){
-                index in
-                CardView(content: emoijs[index])
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 85),spacing: 0)], spacing: 0){
+            ForEach(viewmodel.cards){card in
+                CardView(card)
                 .aspectRatio(2/3, contentMode: .fit)
+                .padding(5)
+                .onTapGesture {
+                    viewmodel.choose(card)
+                }
             }
         }
-        .foregroundColor(color)
+        .foregroundColor(viewmodel.color)
         
         
     }
     var selections: some View{
         HStack{
-            SectionButton(color: $color, symbol: "face.smiling", text: "Motyw 1")
-                .onTapGesture(perform:{
-                    changeMotyw(text: "Motyw 1")
-                })
+            
+            SectionButton(viewModel: MemoGameViewModel(), imageName: "face.smiling", content: "Motyw 1", ownColor: .blue)
             Spacer()
-            SectionButton(color: $color, symbol: "paperplane.circle", text: "Motyw 2")
-                .onTapGesture(perform:{
-                    changeMotyw(text: "Motyw 2")
-                })
+            
+            SectionButton(viewModel: MemoGameViewModel(), imageName: "paperplane.circle", content: "Motyw 2", ownColor: .red)
             Spacer()
-            SectionButton(color: $color, symbol: "heart", text: "Motyw 3")
-            .onTapGesture(perform:{
-                    changeMotyw(text: "Motyw 3")
-                })
+            
+            SectionButton(viewModel: MemoGameViewModel(), imageName: "heart", content: "Motyw 3", ownColor: .green)
         }
         
     }
-    func changeMotyw(text: String){
-        switch text {
-            case "Motyw 1":
-                self.color = .blue
-                emoijs=emoijsM1
-            case "Motyw 2":
-                self.color = .red
-                emoijs=emoijsM2
-            case "Motyw 3":
-                self.color = .green
-                emoijs=emoijsM3
-            default:
-                self.color = .blue
-        }
-        emoijs+=emoijs
-        emoijs=emoijs.shuffled()
 
-    }
 //    struct CardView: View {
 //        let content: String
 //        @State var isFaceUp : Bool = true
@@ -140,5 +124,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewmodel: MemoGameViewModel())
 }
