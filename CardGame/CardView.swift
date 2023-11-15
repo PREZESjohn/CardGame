@@ -12,9 +12,11 @@ struct CardView: View {
 //    @State var isFaceUp : Bool = false
     
     var card: MemoGameModel<String>.Card
+	var color: Color
     
     init(_ card:MemoGameModel<String>.Card) {
                 self.card=card
+				self.color=color
     }
     
     var body: some View {
@@ -31,7 +33,8 @@ struct CardView: View {
             .opacity(card.isFaceUp ? 1 : 0)
             base.fill().opacity(card.isFaceUp ? 0 : 1)
         }
-        .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+		.foregroundColor(color)
+        //.opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
     }
 }
 

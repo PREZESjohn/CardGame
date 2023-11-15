@@ -38,7 +38,7 @@ struct ContentView: View {
 //            }
 //            cardsCountAdjuster
         }
-        .foregroundColor(viewmodel.color)
+        .foregroundColor(viewmodel.themecolor)
         .padding()
     }
     
@@ -91,13 +91,13 @@ struct ContentView: View {
     var selections: some View{
         HStack{
             
-            SectionButton(viewModel: MemoGameViewModel(), imageName: "face.smiling", content: "Motyw 1", ownColor: .blue)
+            SectionButton(viewModel: viewmodel, imageName: "face.smiling", content: "Motyw 1", ownColor: .blue)
             Spacer()
             
-            SectionButton(viewModel: MemoGameViewModel(), imageName: "paperplane.circle", content: "Motyw 2", ownColor: .red)
+            SectionButton(viewModel: viewmodel, imageName: "paperplane.circle", content: "Motyw 2", ownColor: .red)
             Spacer()
             
-            SectionButton(viewModel: MemoGameViewModel(), imageName: "heart", content: "Motyw 3", ownColor: .green)
+            SectionButton(viewModel: viewmodel, imageName: "heart", content: "Motyw 3", ownColor: .green)
         }
         
     }

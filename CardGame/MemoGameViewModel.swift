@@ -10,29 +10,43 @@ import SwiftUI
 class MemoGameViewModel: ObservableObject{
     
     
-    private static var emojis = ["😀","😃","😆","😅","🤣","😊"]
-    let emoijsM1=["😀","😃","😆","😅","🤣","😊"]
-    let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
-    let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
+//    private static var emojis = ["😀","😃","😆","😅","🤣","😊"]
+//    let emoijsM1=["😀","😃","😆","😅","🤣","😊"]
+//    let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
+//    let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
+    private static let emojis: [Color: [String]]=[
+    Color.blue:["😀","😃","😆","😅","🤣","😊"],
+    Color.red:["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"],
+    Color.green:["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
+    ]
     
-    var color: Color = .red
+
     
-    private static func createMemoGameViewModel() -> MemoGameModel<String>{
+    private static func createMemoGameModel(color: Color = .blue) -> MemoGameModel<String>{
             return MemoGameModel<String>(numberOfPairsOfCards: 6){
                 index in
-                if emojis.indices.contains(index){
-                    return emojis[index]
-                } else {
+//                if emojis.indices.contains(index){
+//                    return emojis[index]
+//                } else {
+//                    return "⁈"
+//                }
+                if let themeEmojis = emojis[color], themeEmojis.indices.contains(index){
+                    return themeEmojis[index]
+                }else{
                     return "⁈"
                 }
                 
             }
         }
-    @Published private var model=createMemoGameViewModel()
+    @Published private var model=createMemoGameModel()
+    var themeColor: Color=Color.blue
     
     var cards: Array<MemoGameModel<String>.Card> {
         return model.cards
     }
+    
+    // MARK: - Zamiary
+    
     func shuffle(){
         model.shuffle()
     }
@@ -41,23 +55,26 @@ class MemoGameViewModel: ObservableObject{
         model.choose(card)
     }
     func changeApplicationTheme(color: Color){
+        print("color przekazany do viewmodel")
         print(color)
-        self.color=color
-        model=MemoGameViewModel.createMemoGameViewModel()
-//        switch text {
-//            case "Motyw 1":
-//                self.color = .blue
-//            MemoGameViewModel.emojis=emoijsM1
-//            case "Motyw 2":
-//                self.color = .red
-//            MemoGameViewModel.emojis=emoijsM2
-//            case "Motyw 3":
-//                self.color = .green
-//            MemoGameViewModel.emojis=emoijsM3
+        self.themeColor=color
+        print("color viewmodel")
+        print(self.themeColor)
+        model=MemoGameViewModel.createMemoGameModel(color: color)
+        shuffle()
+        
+//        switch color {
+//            case .blue:
+//                MemoGameViewModel.emojis=emoijsM1
+//            case .red:
+//                MemoGameViewModel.emojis=emoijsM2
+//            case .green:
+//                MemoGameViewModel.emojis=emoijsM3
 //            default:
-//                self.color = .blue
+//                MemoGameViewModel.emojis=emoijsM1
 //        }
-//        MemoGameViewModel.emojis=MemoGameViewModel.emojis.shuffled()
+        
+        
     }
    
     

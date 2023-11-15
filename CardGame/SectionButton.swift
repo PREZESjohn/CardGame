@@ -20,7 +20,7 @@ struct SectionButton: View {
             VStack{
                 Image(systemName: imageName).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                 Text(content)
-            }
+            }.foregroundColor(viewModel.themeColor)
         })
     }
 }
