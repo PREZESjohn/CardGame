@@ -34,7 +34,7 @@ struct CardView: View {
             base.fill().opacity(card.isFaceUp ? 0 : 1)
         }
 		.foregroundColor(color)
-        //.opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+        .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
     }
 }
 
