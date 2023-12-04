@@ -9,120 +9,105 @@ import SwiftUI
 
 struct ContentView: View {
     
-//    let emoijsM1=["😀","😃","😆","😅","🤣","😊"]
-//    let emoijsM2=["🩳","👕","🩴","🎩","🧤","👗","🥿","⛑"]
-//    let emoijsM3=["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
-    
-    //@State var emoijs=["😀","😃","😆","😅","🤣","😊","😀","😃","😆","😅","🤣","😊"].shuffled()
-    //var color: Color = .blue
-    //@State var cardCount = 12
-    
-    @ObservedObject var viewmodel: MemoGameViewModel
-    
+    @State var lastScoreChange: (Int,String) = (0,"")
+    @State var cardid: String=""
+    @ObservedObject var viewmodel : MemoGameViewModel
     var body: some View {
         VStack{
             Text("Memo").font(.largeTitle).foregroundColor(.black)
             ScrollView{
                 cards
-                    .animation(.default,value: viewmodel.cards)
+                          //  .animation(.default,value: viewmodel.cards)
             }
-            Button("shuffluj"){
-                viewmodel.shuffle()
-            }
-            selections
-            
-            
-            //lab3
-//            ScrollView{
-//                cards
-//            }
-//            cardsCountAdjuster
-        }
-        .foregroundColor(viewmodel.themecolor)
-        .padding()
-    }
-    
-//    func adjustCardNumber(by offset: Int, symbol: String) -> some View{
-//        Button(action:{cardCount += offset}) {
-//
-//            Text(symbol)
-//                .padding(.horizontal)
-//                .font(.largeTitle)
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 12).stroke(Color.blue, lineWidth: 2))
-//
-//        }
-//
-//
-//        //.disabled(cardCount<=2 || cardCount>emoijs.count)
-//    }
-//
-//    var cardsCountAdjuster: some View {
-//        HStack {
-//            cardRemover
-//            Spacer()
-//            cardAdder
-//
-//        }
-//    }
-//
-//    var cardAdder: some View {
-//            adjustCardNumber(by: 2, symbol: "+").disabled( cardCount+2>emoijs.count)
-//        }
-//        var cardRemover: some View{
-//            adjustCardNumber(by: -2, symbol: "-").disabled(cardCount<=2)
-//        }
-
-    var cards : some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 85),spacing: 0)], spacing: 0){
-            ForEach(viewmodel.cards){card in
-                CardView(card)
-                .aspectRatio(2/3, contentMode: .fit)
-                .padding(5)
-                .onTapGesture {
-                    viewmodel.choose(card)
+            HStack{
+                Text("Wynik: "+String(viewmodel.getScore()))
+                Spacer()
+                Button("shuffluj"){
+                    withAnimation(.easeOut(duration: 0.3)){
+                        viewmodel.shuffle()
+                    }
                 }
             }
-        }
-        .foregroundColor(viewmodel.color)
-        
-        
-    }
-    var selections: some View{
-        HStack{
-            
-            SectionButton(viewModel: viewmodel, imageName: "face.smiling", content: "Motyw 1", ownColor: .blue)
             Spacer()
-            
-            SectionButton(viewModel: viewmodel, imageName: "paperplane.circle", content: "Motyw 2", ownColor: .red)
-            Spacer()
-            
-            SectionButton(viewModel: viewmodel, imageName: "heart", content: "Motyw 3", ownColor: .green)
+            selections
+
         }
-        
+        .foregroundColor(viewmodel.themeColor)
+        .padding()
+//        CirclePart(endAngle: .degrees(240))
+//            .fill(Color.blue)
+//            .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.orange, lineWidth: 4))
+//            .padding()
     }
 
-//    struct CardView: View {
-//        let content: String
-//        @State var isFaceUp : Bool = true
-//        var body: some View {
-//            ZStack{
-//                let base = RoundedRectangle(cornerRadius: 12)
-//                if isFaceUp {
-//                    base.fill(Color.white)
-//                    base.strokeBorder(lineWidth: 3)
-//                    Text(content).font(.largeTitle)
-//                } else {
-//                    base.fill()
-//                }
-//            }
-//            .foregroundColor(.orange)
-//            .onTapGesture(perform: {isFaceUp.toggle()})
-//        }
-//    }
-    
+
+
+    var cards : some View {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 85),spacing: 0)], spacing: 0){
+                ForEach(viewmodel.cards){card in
+                    
+                    ZStack{
+                        CardView(card, viewmodel.themeColor)
+                            .aspectRatio(2/3, contentMode: .fit)
+                            .padding(5)
+                            .onTapGesture {
+                                let resultTemp=viewmodel.getScore()
+                                viewmodel.choose(card)
+//                                let cards = viewmodel.cards
+//                                let chosenIndex = cards.firstIndex(where: {$0.id == card.id})
+//                                let card=cards[chosenIndex!]
+//                                if(card.isMatched==true){
+//                                    result+=4
+//                                                    print(card.isMatched)
+//                                                }else{
+//                                                    if(card.hasBeenSeen==true){
+//                                                        result-=1
+//                                                    }
+//                                                }
+                                lastScoreChange=(viewmodel.getScore()-resultTemp,card.id)
+                                self.cardid=card.id
+                                print(viewmodel.getScore())
+                            }
+                        if self.cardid==card.id{
+                            FlyingNumber(number: scoreChange(card.id))
+                        }
+                    }
+//                    .overlay{
+//                        if flyingNumberVis{
+//                            FlyingNumber(number: scoreChange(card.id))
+//                        }
+//                    }
+                }
+            }.foregroundColor(viewmodel.themeColor)
+            
+            
+        }
+        var selections: some View{
+            HStack{
+                
+                SectionButton(viewModel: viewmodel, imageName: "face.smiling", content: "Motyw 1", ownColor: .blue)
+                Spacer()
+                
+                SectionButton(viewModel: viewmodel, imageName: "paperplane.circle", content: "Motyw 2", ownColor: .red)
+                Spacer()
+                
+                SectionButton(viewModel: viewmodel, imageName: "heart", content: "Motyw 3", ownColor: .green)
+            }
+            
+        }
+    func scoreChange(_ id: String)->Int{
+        if(lastScoreChange.1 == id){
+            return lastScoreChange.0
+        }else{
+            return 0
+        }
+    }
+
 }
 
-#Preview {
-    ContentView(viewmodel: MemoGameViewModel())
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView(viewmodel: MemoGameViewModel())
+    }
 }

@@ -2,7 +2,7 @@
 //  CardGameApp.swift
 //  CardGame
 //
-//  Created by student on 17/10/2023.
+//  Created by student on 21/10/2023.
 //
 
 import SwiftUI

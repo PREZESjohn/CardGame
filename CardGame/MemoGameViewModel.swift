@@ -4,7 +4,7 @@
 //
 //  Created by student on 07/11/2023.
 //
-
+import Foundation
 import SwiftUI
 
 class MemoGameViewModel: ObservableObject{
@@ -20,7 +20,8 @@ class MemoGameViewModel: ObservableObject{
     Color.green:["🦧","🦒","🐂","🐩","🐑","🦈","🕷"]
     ]
     
-
+    
+   
     
     private static func createMemoGameModel(color: Color = .blue) -> MemoGameModel<String>{
             return MemoGameModel<String>(numberOfPairsOfCards: 6){
@@ -49,6 +50,9 @@ class MemoGameViewModel: ObservableObject{
     
     func shuffle(){
         model.shuffle()
+    }
+    func getScore()->Int{
+        return model.getScore()
     }
     
     func choose(_ card: MemoGameModel<String>.Card){
@@ -79,3 +83,4 @@ class MemoGameViewModel: ObservableObject{
    
     
 }
+
