@@ -26,11 +26,6 @@ class MemoGameViewModel: ObservableObject{
     private static func createMemoGameModel(color: Color = .blue) -> MemoGameModel<String>{
             return MemoGameModel<String>(numberOfPairsOfCards: 6){
                 index in
-//                if emojis.indices.contains(index){
-//                    return emojis[index]
-//                } else {
-//                    return "⁈"
-//                }
                 if let themeEmojis = emojis[color], themeEmojis.indices.contains(index){
                     return themeEmojis[index]
                 }else{
@@ -51,9 +46,10 @@ class MemoGameViewModel: ObservableObject{
     func shuffle(){
         model.shuffle()
     }
+    
     func getScore()->Int{
-        return model.getScore()
-    }
+            return model.getScore()
+        }
     
     func choose(_ card: MemoGameModel<String>.Card){
         model.choose(card)

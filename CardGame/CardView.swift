@@ -43,6 +43,7 @@ struct CardView: View {
             .animation(.linear(duration: 0.5),value: card.isFaceUp)
             .foregroundColor(color)
             .opacity(card.isFaceUp || !card.isMatched ? 1 : 0)
+            .animation(.easeOut(duration: 0.5))
         
     }
 }
