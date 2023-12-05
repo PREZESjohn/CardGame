@@ -19,9 +19,6 @@ struct TransformIntoCard: ViewModifier{
                         .font(.system(size: 200))
                         .minimumScaleFactor(0.01)
                         .aspectRatio(1,contentMode: .fit)
-                        .rotationEffect(.degrees(isMatched ? 360 : 0))
-                        //.animation(.easeInOut(duration: 2).repeatForever(), value: isMatched)
-                        .animation(.continousRotation(), value: isMatched)
                         .opacity(isFaceUp ? 1 : 0)
                     
                 }
@@ -37,8 +34,4 @@ extension View{
         modifier(CardGame.TransformIntoCard(cardContent: cardContent, isFaceUp: isFaceUp, isMatched: isMatched))
     }
 }
-extension Animation {
-    static func continousRotation() -> Animation{
-        return Animation.linear(duration: 2)//.repeatForever()
-    }
-}
+

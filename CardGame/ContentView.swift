@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var lastScoreChange: (Int,String) = (0,"")
     @State var cardid: String=""
     @ObservedObject var viewmodel : MemoGameViewModel
     var body: some View {
@@ -17,15 +16,15 @@ struct ContentView: View {
             Text("Memo").font(.largeTitle).foregroundColor(.black)
             ScrollView{
                 cards
-                          //  .animation(.default,value: viewmodel.cards)
+                          .animation(.default,value: viewmodel.cards)
             }
             HStack{
                 Text("Wynik: "+String(viewmodel.getScore()))
                 Spacer()
                 Button("shuffluj"){
-                    withAnimation(.easeOut(duration: 0.3)){
+
                         viewmodel.shuffle()
-                    }
+
                 }
             }
             Spacer()
@@ -45,38 +44,14 @@ struct ContentView: View {
     var cards : some View {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 85),spacing: 0)], spacing: 0){
                 ForEach(viewmodel.cards){card in
-                    
-                    ZStack{
                         CardView(card, viewmodel.themeColor)
                             .aspectRatio(2/3, contentMode: .fit)
                             .padding(5)
                             .onTapGesture {
-                                let resultTemp=viewmodel.getScore()
                                 viewmodel.choose(card)
-//                                let cards = viewmodel.cards
-//                                let chosenIndex = cards.firstIndex(where: {$0.id == card.id})
-//                                let card=cards[chosenIndex!]
-//                                if(card.isMatched==true){
-//                                    result+=4
-//                                                    print(card.isMatched)
-//                                                }else{
-//                                                    if(card.hasBeenSeen==true){
-//                                                        result-=1
-//                                                    }
-//                                                }
-                                lastScoreChange=(viewmodel.getScore()-resultTemp,card.id)
-                                self.cardid=card.id
-                                print(viewmodel.getScore())
-                            }
-                        if self.cardid==card.id{
-                            FlyingNumber(number: scoreChange(card.id))
-                        }
-                    }
-//                    .overlay{
-//                        if flyingNumberVis{
-//                            FlyingNumber(number: scoreChange(card.id))
-//                        }
-//                    }
+
+                    
+
                 }
             }.foregroundColor(viewmodel.themeColor)
             
